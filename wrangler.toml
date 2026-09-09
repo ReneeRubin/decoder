@@ -1,0 +1,10 @@
+name = "rueckenbewusst-decoder"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "dist"
+
+# Server-seitige Environment-Variablen für lokale Entwicklung (`wrangler pages dev`).
+# Produktiv werden BREVO_API_KEY etc. ausschließlich im Cloudflare Pages
+# Dashboard als (verschlüsseltes) Secret gesetzt – NICHT hier, NICHT in Git.
+[vars]
+BREVO_LIST_ID = "24"
+QUIZ_VERSION = "v1"
