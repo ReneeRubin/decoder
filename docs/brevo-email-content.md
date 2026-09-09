@@ -197,6 +197,26 @@ Verfügbare Merge-Tags: `{{contact.FNAME}}`, `{{contact.SCHMERZ_DECODER_ERGEBNIS
 
 ---
 
+## Testimonial je Hauptcode (optional, für "Social Proof" in der Mail)
+
+Renée hat jedem Hauptcode eine passende Klientin zugeordnet. Zitat-Text
+liegt bisher nur für zwei davon vor (siehe `content/testimonials.md` für
+den aktuellen Stand und offene TODOs):
+
+| Hauptcode | Person | Zitat |
+|---|---|---|
+| A – Die Funktionierende | Anja | TODO: Zitat fehlt noch |
+| B – Die Verantwortungsträgerin | Barbara | TODO: Zitat fehlt noch |
+| C – Die Kontrollierende | Verena | "Seit ich mit meiner Vision arbeite, bin ich seit rund 5 Wochen schmerzfrei im unteren Rücken. Du hast mir vieles gezeigt, was ich eigentlich fast verloren hatte." |
+| D – Die Angepasste | Lorenza | TODO: Zitat fehlt noch |
+| E – Die Überladene | Alexandra / Julia | "Mein Rücken ist stark und stabil, meine Psyche ebenso. Ich habe auch wieder viel mehr Energie. Es ist unglaublich, wie sich alles ins Positive gewandelt hat." (Alexandra) – Julia-Zitat fehlt noch |
+
+**Nicht verwenden, solange das Zitat fehlt** – lieber den Testimonial-Block
+für diesen Hauptcode in der Mail vorerst weglassen, statt ein Zitat zu
+erfinden oder ein unpassendes zu verwenden.
+
+---
+
 ## Verbindungstexte (nur für die explizit vorgegebenen Kombinationen)
 
 - **A + Energie:** Du kannst sehr lange funktionieren. Deine Energie-Spur macht sichtbar, dass die entscheidende Frage vielleicht nicht lautet, wie du noch mehr schaffen kannst, sondern wann du beginnst, deine eigenen Ressourcen ernst zu nehmen.
