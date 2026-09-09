@@ -121,11 +121,11 @@ Alle vier Kommandos müssen fehlerfrei durchlaufen, bevor deployed wird.
 Diese Punkte fehlen als Zulieferung vom Auftraggeber und wurden bewusst
 **nicht erfunden**:
 
-- **Bilder:** Zwei persönliche Fotos von Renée (Hero-/Brandbild, Trust-/CTA-Bild) fehlen im Repository.
-- **Testimonials:** Echte Testimonials aus Canva – siehe `content/testimonials.md`.
+- **Bilder:** Zwei persönliche Fotos von Renée (Hero-/Brandbild, Trust-/CTA-Bild) wurden im Chat gezeigt, konnten aber nicht als Datei ins Repository übernommen werden (siehe unten). Sobald als Datei verfügbar, Einbindung in `StartScreen.tsx`/`SuccessScreen.tsx` (TODO-Kommentare markieren die Stelle).
+- **Testimonials:** ✅ Umgesetzt (`src/data/testimonials.ts`, siehe `content/testimonials.md` für Details und offenen DSGVO-Hinweis zur Veröffentlichungs-Einwilligung).
 - **Schriften:** "Brittany" (Headline) und "Century Gothic" (Body) liegen nicht als lizenzierte Web-Font-Dateien vor; aktuell hochwertige Fallback-Stacks im Einsatz (`src/styles/global.css`).
 - **Rückenkompass-URL:** Calendly-Link fehlt (`VITE_CALENDLY_URL`).
-- **Brevo API Key:** Kein echter Key vorhanden – Mock-Modus aktiv.
+- **Brevo API Key:** Der bereitgestellte Key ist ein **SMTP-Key** (`xsmtpsib-...`), keine v3-REST-API-Key (`xkeysib-...`) – für die Contacts-API wird der echte API-Key benötigt (Brevo → SMTP & API → Tab "API-Keys"). Bis dahin Mock-Modus aktiv.
 - **Rechtstexte:** Datenschutzerklärung/Impressum sind nur als Link-Platzhalter im E-Mail-Gate vorgesehen, Inhalte fehlen.
 - **Double-Opt-in/Consent-Text:** Rechtlich geprüfter Einwilligungstext für die Marketing-Automation fehlt, siehe `docs/brevo-setup.md`.
 - **Finale Domain-Entscheidung:** Subdomain vs. Pfad `/decoder`, siehe `docs/alfahosting-domain-setup.md`.

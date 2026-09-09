@@ -1,3 +1,5 @@
+import { Testimonials } from "./Testimonials";
+
 interface StartScreenProps {
   onStart: () => void;
 }
@@ -41,6 +43,8 @@ export function StartScreen({ onStart }: StartScreenProps) {
         <p className="hint" style={{ marginTop: 16 }}>
           12 Fragen · ca. 3 Minuten · keine Diagnose
         </p>
+
+        <Testimonials />
       </div>
     </div>
   );
