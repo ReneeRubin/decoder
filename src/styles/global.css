@@ -7,8 +7,12 @@
  * Schriften: Century Gothic (Body) / Brittany (Headlines) sind proprietäre
  * Schriften ohne freie Web-Font-Datei im Projekt (TODO: Lizenzdateien vom
  * Auftraggeber ergänzen, siehe README). Bis dahin werden hochwertige,
- * verfügbare Fallback-Stacks verwendet. Fragen bleiben bewusst in der
- * Body-Schrift (Lesbarkeit hat Vorrang, siehe Vorgabe Abschnitt 47).
+ * verfügbare Fallback-Stacks verwendet.
+ *
+ * Nach Live-Test-Feedback: Die geschwungene Schreibschrift-Variante (z.B.
+ * "Snell Roundhand") wirkte auf Start-/Erfolgsseite nicht passend. Headlines
+ * nutzen deshalb bewusst dieselbe Schriftfamilie wie der Fließtext, nur fett
+ * und größer (siehe h1/h2/h3-Regeln unten) statt einer Schreibschrift.
  */
 
 :root {
@@ -22,7 +26,7 @@
   --color-white: #ffffff;
 
   --font-body: "Century Gothic", "Futura", "Avenir Next", "Segoe UI", sans-serif;
-  --font-headline: "Brittany", "Snell Roundhand", "Segoe Script", Georgia, serif;
+  --font-headline: var(--font-body);
 
   --radius-lg: 24px;
   --radius-md: 16px;
