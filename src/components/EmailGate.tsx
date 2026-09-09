@@ -3,11 +3,12 @@ import { isValidEmail, isValidFirstName } from "../lib/validation";
 
 interface EmailGateProps {
   onSubmit: (data: { firstName: string; email: string; website: string }) => void;
+  onBack: () => void;
   submitting: boolean;
   errorMessage?: string;
 }
 
-export function EmailGate({ onSubmit, submitting, errorMessage }: EmailGateProps) {
+export function EmailGate({ onSubmit, onBack, submitting, errorMessage }: EmailGateProps) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState(""); // Honeypot – bleibt für Menschen unsichtbar & leer
@@ -93,9 +94,14 @@ export function EmailGate({ onSubmit, submitting, errorMessage }: EmailGateProps
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
-            {submitting ? "Wird gesendet …" : "Mein Ergebnis erhalten"}
-          </button>
+          <div className="question-nav">
+            <button type="button" className="btn btn-secondary" onClick={onBack} disabled={submitting}>
+              Zurück
+            </button>
+            <button type="submit" className="btn btn-primary" disabled={submitting}>
+              {submitting ? "Wird gesendet …" : "Mein Ergebnis erhalten"}
+            </button>
+          </div>
         </form>
 
         <p className="disclaimer">

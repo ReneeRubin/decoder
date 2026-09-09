@@ -39,18 +39,25 @@ export default function App() {
     setStep({ kind: "question", index: 0 });
   }
 
-  function handleAnswer(question: (typeof QUIZ_QUESTIONS)[number], optionId: string, index: number) {
+  function handleSelect(question: (typeof QUIZ_QUESTIONS)[number], optionId: string) {
     setAnswers((prev) => ({ ...prev, [question.id]: optionId }));
     trackEvent({ name: "question_answered", questionNumber: question.number });
+  }
 
-    // Kurze Verzögerung für sichtbares Feedback der Auswahl, danach automatisch weiter.
-    window.setTimeout(() => {
-      if (question.interstitial) {
-        setStep({ kind: "interstitial", afterIndex: index, text: question.interstitial });
-      } else {
-        goToStep(index + 1);
-      }
-    }, 220);
+  function handleNext(question: (typeof QUIZ_QUESTIONS)[number], index: number) {
+    if (question.interstitial) {
+      setStep({ kind: "interstitial", afterIndex: index, text: question.interstitial });
+    } else {
+      goToStep(index + 1);
+    }
+  }
+
+  function handleBackFromQuestion(index: number) {
+    if (index === 0) {
+      setStep({ kind: "start" });
+    } else {
+      setStep({ kind: "question", index: index - 1 });
+    }
   }
 
   async function handleEmailSubmit(data: { firstName: string; email: string; website: string }) {
@@ -85,16 +92,28 @@ export default function App() {
           question={currentQuestion}
           totalQuestions={totalQuestions}
           selectedOptionId={answers[currentQuestion.id]}
-          onAnswer={(optionId) => handleAnswer(currentQuestion, optionId, step.index)}
+          onSelect={(optionId) => handleSelect(currentQuestion, optionId)}
+          onNext={() => handleNext(currentQuestion, step.index)}
+          onBack={() => handleBackFromQuestion(step.index)}
+          canGoBack
         />
       )}
 
       {step.kind === "interstitial" && (
-        <InterstitialScreen text={step.text} onContinue={() => goToStep(step.afterIndex + 1)} />
+        <InterstitialScreen
+          text={step.text}
+          onContinue={() => goToStep(step.afterIndex + 1)}
+          onBack={() => setStep({ kind: "question", index: step.afterIndex })}
+        />
       )}
 
       {step.kind === "email" && (
-        <EmailGate onSubmit={handleEmailSubmit} submitting={submitting} errorMessage={submitError} />
+        <EmailGate
+          onSubmit={handleEmailSubmit}
+          onBack={() => setStep({ kind: "question", index: totalQuestions - 1 })}
+          submitting={submitting}
+          errorMessage={submitError}
+        />
       )}
 
       {step.kind === "success" && <SuccessScreen />}

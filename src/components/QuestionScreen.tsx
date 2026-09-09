@@ -5,10 +5,21 @@ interface QuestionScreenProps {
   question: QuizQuestion;
   totalQuestions: number;
   selectedOptionId?: string;
-  onAnswer: (optionId: string) => void;
+  onSelect: (optionId: string) => void;
+  onNext: () => void;
+  onBack: () => void;
+  canGoBack: boolean;
 }
 
-export function QuestionScreen({ question, totalQuestions, selectedOptionId, onAnswer }: QuestionScreenProps) {
+export function QuestionScreen({
+  question,
+  totalQuestions,
+  selectedOptionId,
+  onSelect,
+  onNext,
+  onBack,
+  canGoBack,
+}: QuestionScreenProps) {
   return (
     <div className="screen">
       <ProgressBar current={question.number} total={totalQuestions} />
@@ -23,13 +34,22 @@ export function QuestionScreen({ question, totalQuestions, selectedOptionId, onA
                   name={question.id}
                   value={option.id}
                   checked={selectedOptionId === option.id}
-                  onChange={() => onAnswer(option.id)}
+                  onChange={() => onSelect(option.id)}
                 />
                 <span className="option-label">{option.text}</span>
               </label>
             ))}
           </div>
         </fieldset>
+
+        <div className="question-nav">
+          <button type="button" className="btn btn-secondary" onClick={onBack} disabled={!canGoBack}>
+            Zurück
+          </button>
+          <button type="button" className="btn btn-primary" onClick={onNext} disabled={!selectedOptionId}>
+            Weiter
+          </button>
+        </div>
       </div>
     </div>
   );
