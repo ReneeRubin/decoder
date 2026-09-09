@@ -36,7 +36,10 @@ export function QuestionScreen({
                   checked={selectedOptionId === option.id}
                   onChange={() => onSelect(option.id)}
                 />
-                <span className="option-label">{option.text}</span>
+                <span className="option-label">
+                  <span className="option-dot" aria-hidden="true" />
+                  {option.text}
+                </span>
               </label>
             ))}
           </div>

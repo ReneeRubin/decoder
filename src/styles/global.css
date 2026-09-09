@@ -257,11 +257,17 @@ a {
   border: 2px solid var(--color-hellblau);
   background: var(--color-white);
   cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color 0.16s ease, background-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 
 .option:hover {
   border-color: var(--color-mittelblau);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(94, 130, 146, 0.14);
+}
+
+.option:active {
+  transform: translateY(0) scale(0.985);
 }
 
 .option input[type="radio"] {
@@ -274,10 +280,34 @@ a {
 .option-label {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   padding: 16px 18px;
-  font-size: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.45;
   color: var(--color-grau);
+}
+
+/* Eigener Auswahl-Indikator statt Systemradio: erlaubt ein weiches "Pop"
+   beim Auswählen (Vorgabe: elegant, soft, aber nicht langsam). */
+.option-dot {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--color-mittelblau);
+  background: var(--color-white);
+  position: relative;
+  transition: border-color 0.16s ease;
+}
+
+.option-dot::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--color-pink);
+  transform: scale(0);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .option input[type="radio"]:checked + .option-label {
@@ -285,14 +315,40 @@ a {
   font-weight: 600;
 }
 
+.option input[type="radio"]:checked + .option-label .option-dot {
+  border-color: var(--color-petrol);
+}
+
+.option input[type="radio"]:checked + .option-label .option-dot::after {
+  transform: scale(1);
+}
+
 .option:has(input[type="radio"]:checked) {
   border-color: var(--color-petrol);
   background: var(--color-hellblau);
+  animation: option-pop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes option-pop {
+  0% { transform: scale(0.97); }
+  100% { transform: scale(1); }
 }
 
 .option:has(input[type="radio"]:focus-visible) {
   outline: 3px solid var(--color-tuerkis);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option,
+  .option-dot::after,
+  .option:has(input[type="radio"]:checked) {
+    transition: none;
+    animation: none;
+  }
+  .option:hover {
+    transform: none;
+  }
 }
 
 /* Formulare */
