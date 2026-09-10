@@ -114,7 +114,49 @@ Zum Testen des kompletten Funnels:
 5. Danach den Testkontakt bei Bedarf wieder aus Liste #24 entfernen, damit
    er nicht die Follow-up-Sequenz doppelt durchläuft.
 
-## 10. Fehlerbehebung
+## 10. Reaktivierungs-Formular (für abgemeldete/blockierte Kontakte)
+
+**Problem:** Wenn jemand sich früher von eurem Newsletter abgemeldet hat
+oder eine frühere E-Mail an sie/ihn "gebounced" ist, markiert Brevo diese
+Adresse als abgemeldet/blockiert. Unsere Automation respektiert das zu
+Recht (Anti-Spam-Pflicht) und verschickt dann **keine** Ergebnis-Mail mehr
+an diese Adresse – auch wenn der Kontakt-Datensatz technisch korrekt mit
+den richtigen Attributen angelegt wurde.
+
+**Lösung (von Renée gewählt):** Auf der Erfolgsseite der Website steht
+optional ein Hinweis "Du hast keine E-Mail erhalten? Klicke hier und
+bestätige, dass du dein Ergebnis erhalten möchtest." Dieser Link führt zu
+einem ganz normalen Brevo-Anmeldeformular für Liste #24. Meldet sich die
+Person dort erneut an, verschickt Brevo automatisch eine
+Double-Opt-in-Bestätigungsmail; nach dem Klick wird der Kontakt reaktiviert
+und ist wieder empfangsberechtigt. Das braucht **keinen zusätzlichen Code**
+auf unserer Seite – nur die Formular-Erstellung in Brevo.
+
+**So richtest du das Formular ein:**
+
+1. In Brevo: **Kontakte → Formulare** (bzw. "Contacts → Forms", je nach
+   Spracheinstellung)
+2. **Neues Formular erstellen** → Typ **"Anmeldeformular"/"Subscription
+   form"** wählen
+3. Als Zielliste **Liste #24 "Leadmagnet Schmerz Decoder"** auswählen
+4. Unter den Formular-Einstellungen **Double Opt-in aktivieren** (falls
+   nicht schon global für die Liste aktiv) und die DOI-Bestätigungsmail
+   prüfen/anpassen
+5. Formular speichern, dann im Reiter **"Teilen"/"Share"** die **direkte
+   URL** des Formulars kopieren (nicht den Embed-Code, sondern den reinen
+   Link)
+6. Diese URL als `VITE_BREVO_REACTIVATION_FORM_URL` eintragen:
+   - Lokal: in `.env` (siehe `.env.example`)
+   - Produktiv: in den Cloudflare Pages **Environment Variables** (siehe
+     Abschnitt 5) – Achtung, dieser Wert ist **öffentlich** (Client-seitig),
+     kein Secret, muss aber trotzdem im Cloudflare-Projekt hinterlegt werden
+7. Neu deployen, damit die Variable wirksam wird
+
+Solange `VITE_BREVO_REACTIVATION_FORM_URL` nicht gesetzt ist, blendet die
+Website den Hinweis auf der Erfolgsseite automatisch aus (kein kaputter
+Link sichtbar).
+
+## 11. Fehlerbehebung
 
 | Symptom | Mögliche Ursache | Lösung |
 |---|---|---|
@@ -124,3 +166,5 @@ Zum Testen des kompletten Funnels:
 | Automation läuft nicht an | Trigger falsch konfiguriert oder Automation deaktiviert | Automation-Status und Trigger-Liste in Brevo prüfen |
 | Doppelte Kontakte statt Update | `updateEnabled` nicht gesetzt (sollte in unserem Code immer `true` sein) | Code in `src/lib/brevo.ts` prüfen, ggf. Brevo-Support kontaktieren |
 | Lokal kein API-Call sichtbar | Kein `BREVO_API_KEY` gesetzt → bewusster Mock-Modus | Für echten Test Key in `.env`/Cloudflare setzen |
+| Kontakt korrekt angelegt, aber keine Mail kommt an | Adresse ist bei Brevo abgemeldet/blockiert | Siehe Abschnitt 10 – Reaktivierungs-Formular verlinken/nutzen |
+| Zweiter Test mit gleicher Adresse löst Automation nicht erneut aus | Brevo-Trigger "zu Liste hinzugefügt" feuert meist nur bei echtem Neu-Hinzufügen | Für Tests neue Adresse nutzen (z.B. `name+test2@gmail.com`) oder Kontakt vorher aus Liste #24 entfernen |

@@ -1,3 +1,5 @@
+import { BREVO_REACTIVATION_FORM_URL } from "../config";
+
 /**
  * Erfolgsseite. Zeigt AUSDRÜCKLICH kein Ergebnis (kein Hauptcode, keine
  * Spur, keine Analyse) – siehe Vorgabe Abschnitt 5, 11 & 71. Das Ergebnis
@@ -18,6 +20,16 @@ export function SuccessScreen() {
         <p className="hint">
           Falls du die Mail nicht sofort siehst, schau bitte auch in deinen Spam- oder Werbeordner.
         </p>
+
+        {BREVO_REACTIVATION_FORM_URL ? (
+          <p className="hint" style={{ marginTop: 20 }}>
+            Du hast keine E-Mail erhalten?{" "}
+            <a href={BREVO_REACTIVATION_FORM_URL} target="_blank" rel="noreferrer">
+              Klicke hier
+            </a>{" "}
+            und bestätige, dass du dein Ergebnis erhalten möchtest.
+          </p>
+        ) : null}
       </div>
     </div>
   );
