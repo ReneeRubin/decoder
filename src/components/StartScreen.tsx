@@ -20,13 +20,9 @@ export function StartScreen({ onStart }: StartScreenProps) {
           Der 3-Minuten-Rücken-Decoder für leistungsstarke Frauen, die schon vieles ausprobiert haben.
         </p>
 
-        <p style={{ color: "var(--color-grau)" }}>
-          Ärzte, Physio, Übungen und Osteopathie hast du hinter dir, aber der Schmerz kam immer wieder.
-        </p>
+        <p>Ärzte, Physio, Übungen und Osteopathie hast du hinter dir, aber der Schmerz kam immer wieder.</p>
 
         <p>Dann ist es Zeit, nicht noch mehr zu tun – sondern genauer hinzuschauen.</p>
-
-        <p>Vielleicht gibt es eine Spur hinter deinem Schmerz, die dir bisher niemand gezeigt hat.</p>
 
         <p>
           Vielleicht fehlt dir jetzt gerade nur der Zusammenhang zwischen deinem Schmerz und dem, was sich in deinem

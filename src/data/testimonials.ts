@@ -52,7 +52,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     name: "Verena",
     quote:
-      "Seit ich mit meiner Vision arbeite, bin ich seit rund 5 Wochen schmerzfrei im unteren Rücken. Du hast mir vieles gezeigt, was ich eigentlich fast verloren hatte.",
+      "Ich bin seit rund 5 Wochen schmerzfrei im unteren Rücken. Du hast mir vieles gezeigt, was ich eigentlich fast verloren hatte.",
     context: "schmerzfrei im unteren Rücken",
     mainCode: "C",
   },
