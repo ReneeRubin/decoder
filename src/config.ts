@@ -21,14 +21,16 @@ export const APP_URL = import.meta.env.VITE_APP_URL ?? "https://rueckenbewusst-s
 export const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL ?? "";
 
 /**
- * TODO: URL eines Brevo-Anmeldeformulars für Liste #24 fehlt noch. Wird auf
- * der Erfolgsseite verlinkt ("Keine E-Mail erhalten?"), damit Kontakte, die
- * sich früher abgemeldet haben oder auf der Blockliste stehen, sich über
- * ein reguläres Double-Opt-in-Formular selbst reaktivieren können, statt
- * dass unser Server das serverseitig prüfen/umgehen muss. Erstellung siehe
- * docs/brevo-setup.md, Abschnitt "Reaktivierungs-Formular". Solange kein
- * Wert gesetzt ist, wird der Link auf der Erfolgsseite nicht angezeigt.
+ * Brevo-Anmeldeformular für Liste #24. Wird auf der Erfolgsseite verlinkt
+ * ("Keine E-Mail erhalten?"), damit Kontakte, die sich früher abgemeldet
+ * haben oder auf der Blockliste stehen, sich über ein reguläres
+ * Double-Opt-in-Formular selbst reaktivieren können. Kein Secret (öffentlich
+ * einsehbares Anmeldeformular), daher als Default fest hinterlegt – kann bei
+ * Bedarf per VITE_BREVO_REACTIVATION_FORM_URL überschrieben werden (siehe
+ * docs/brevo-setup.md, Abschnitt "Reaktivierungs-Formular").
  */
-export const BREVO_REACTIVATION_FORM_URL = import.meta.env.VITE_BREVO_REACTIVATION_FORM_URL ?? "";
+export const BREVO_REACTIVATION_FORM_URL =
+  import.meta.env.VITE_BREVO_REACTIVATION_FORM_URL ??
+  "https://5cc45ce8.sibforms.com/serve/MUIFAB33IJ0WRBbfddCKjSxt5BJyeuUULgx1W3xe9dKLfshlweedFjAoHffOH27gGbTZyF9eUIyzs453cqiqDNgJgRljHcbVsQLOsbwS4193vK7YAI1TARdM9NwX4TLn17NZWJI0oRaz1Nq3OqHyFUWeTaF73vIkhz_Gn9qUk9BEA-ByvuQ4-kxNXcUnqAyVpgaw6yAfBDAXOO9T";
 
 export const TOTAL_QUESTIONS = 12;
