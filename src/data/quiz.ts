@@ -7,9 +7,17 @@ import type { QuizQuestion } from "../types";
  * Fragen 10–12 bestimmen ausschließlich die AKTUELLE SPUR (Energie/Emotionen/Gedanken)
  * und dürfen den Hauptcode NICHT beeinflussen (siehe Vorgabe Abschnitt 15 & 29).
  *
- * Gewichtungen sind 1:1 aus der fachlichen Vorgabe übernommen. Nichts hier ist
- * frei erfunden – bei Unklarheiten wurde nichts ergänzt, sondern die Vorgabe
- * wörtlich umgesetzt.
+ * Stand nach Überarbeitung (09/2026): Der Typ B ("Die Verantwortungsträgerin")
+ * hatte ursprünglich strukturell zu wenige/zu schwache Antwortoptionen
+ * (max. 12 Punkte erreichbar ggü. 15-19 bei den anderen Typen, und in Frage
+ * 1, 2 und 7 gab es gar keine B-Option). Das wurde behoben: Jede der 9
+ * Hauptfragen enthält jetzt eine echte, psychologisch fundierte B-Aussage
+ * (Überverantwortlichkeit / Unentbehrlichkeits-Glaubenssatz / Retter-Rolle),
+ * neuer Ceiling ca. 19 Punkte – vergleichbar mit den anderen Typen.
+ * Zusätzlich wurde die Reihenfolge der Antwortoptionen je Frage durchmischt,
+ * damit keine feste Antwort-Position mehr einem bestimmten Ergebnis
+ * entspricht (die Options-`id` bleibt unverändert und bestimmt weiterhin die
+ * Gewichtung, nur die Anzeigereihenfolge hat sich geändert).
  */
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
@@ -19,19 +27,19 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     text: "Wenn dein Rücken sich wieder meldet – was passiert meistens zuerst?",
     options: [
       {
-        id: "A",
-        text: "Ich mache erstmal weiter. Ich kann mich jetzt nicht auch noch darum kümmern.",
-        mainWeights: { A: 2 },
-      },
-      {
-        id: "B",
-        text: "Ich frage mich sofort, was ich körperlich falsch gemacht habe.",
-        mainWeights: { C: 1 },
-      },
-      {
         id: "C",
         text: "Ich werde unruhig und möchte schnell wieder Kontrolle über meinen Körper bekommen.",
         mainWeights: { C: 2 },
+      },
+      {
+        id: "E",
+        text: "Ich merke plötzlich, dass eigentlich gerade alles zu viel ist.",
+        mainWeights: { E: 2 },
+      },
+      {
+        id: "A",
+        text: "Ich mache erstmal weiter. Ich kann mich jetzt nicht auch noch darum kümmern.",
+        mainWeights: { A: 2 },
       },
       {
         id: "D",
@@ -39,9 +47,9 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
         mainWeights: { A: 1, E: 1 },
       },
       {
-        id: "E",
-        text: "Ich merke plötzlich, dass eigentlich gerade alles zu viel ist.",
-        mainWeights: { E: 2 },
+        id: "B",
+        text: "Ich denke sofort daran, wer sich jetzt um alles kümmert, wenn ich ausfalle.",
+        mainWeights: { B: 2 },
       },
     ],
   },
@@ -52,29 +60,29 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     text: "Wie reagierst du meistens, wenn du merkst: Eigentlich brauche ich gerade eine Pause?",
     options: [
       {
-        id: "A",
-        text: "Ich mache trotzdem weiter. Es gibt gerade Wichtigeres.",
-        mainWeights: { A: 2 },
-      },
-      {
-        id: "B",
-        text: "Ich verschiebe die Pause auf später.",
-        mainWeights: { A: 1, E: 1 },
-      },
-      {
-        id: "C",
-        text: "Ich erledige erst noch schnell alles, was offen ist.",
-        mainWeights: { E: 2 },
-      },
-      {
         id: "D",
         text: "Ich mache die Pause – aber nur, wenn wirklich alles erledigt ist.",
         mainWeights: { C: 1, E: 1 },
       },
       {
+        id: "A",
+        text: "Ich mache trotzdem weiter. Es gibt gerade Wichtigeres.",
+        mainWeights: { A: 2 },
+      },
+      {
         id: "E",
         text: "Ich nehme die Pause inzwischen meistens ernst.",
         mainWeights: {},
+      },
+      {
+        id: "B",
+        text: "Ich mache die Pause nicht, weil ich das Gefühl habe, dass sonst alles bei mir hängen bleibt.",
+        mainWeights: { B: 2 },
+      },
+      {
+        id: "C",
+        text: "Ich erledige erst noch schnell alles, was offen ist.",
+        mainWeights: { E: 2 },
       },
     ],
   },
@@ -84,19 +92,19 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     group: "main",
     text: "Wann übergehst du dich selbst am ehesten?",
     options: [
-      { id: "A", text: "Wenn andere etwas von mir brauchen.", mainWeights: { D: 2 } },
       { id: "B", text: "Wenn viel zu tun ist.", mainWeights: { A: 2 } },
-      {
-        id: "C",
-        text: "Wenn ich das Gefühl habe, dass etwas sonst nicht richtig erledigt wird.",
-        mainWeights: { B: 1, C: 1 },
-      },
       {
         id: "D",
         text: "Wenn ich mir etwas vorgenommen habe und es unbedingt schaffen möchte.",
         mainWeights: { C: 2 },
       },
+      { id: "A", text: "Wenn andere etwas von mir brauchen.", mainWeights: { D: 2 } },
       { id: "E", text: "Wenn gleichzeitig zu viele Dinge passieren.", mainWeights: { E: 2 } },
+      {
+        id: "C",
+        text: "Wenn ich das Gefühl habe, dass sonst niemand einspringt.",
+        mainWeights: { B: 2 },
+      },
     ],
   },
   {
@@ -105,27 +113,27 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     group: "main",
     text: "Was sind gerade deine größten Herausforderungen im Alltag?",
     options: [
-      {
-        id: "A",
-        text: "Zu viel Verantwortung und zu viele Menschen, die etwas von mir brauchen.",
-        mainWeights: { B: 2 },
-      },
-      {
-        id: "B",
-        text: "Ich habe das Gefühl, ständig funktionieren zu müssen.",
-        mainWeights: { A: 2 },
-      },
+      { id: "E", text: "Ich habe zu viele Dinge gleichzeitig im Kopf.", mainWeights: { E: 2 } },
       {
         id: "C",
         text: "Ich möchte allem gerecht werden und mache mir selbst viel Druck.",
         mainWeights: { C: 2 },
       },
       {
+        id: "A",
+        text: "Ich trage gerade zu viel Verantwortung – für Dinge, die eigentlich nicht nur an mir hängen sollten.",
+        mainWeights: { B: 2 },
+      },
+      {
         id: "D",
         text: "Ich habe Schwierigkeiten, meine eigenen Bedürfnisse wirklich ernst zu nehmen.",
         mainWeights: { D: 2 },
       },
-      { id: "E", text: "Ich habe zu viele Dinge gleichzeitig im Kopf.", mainWeights: { E: 2 } },
+      {
+        id: "B",
+        text: "Ich habe das Gefühl, ständig funktionieren zu müssen.",
+        mainWeights: { A: 2 },
+      },
     ],
   },
   {
@@ -134,14 +142,14 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     group: "main",
     text: "Welcher Satz läuft bei dir manchmal leise im Hintergrund?",
     options: [
+      { id: "C", text: "Ich muss alles im Griff haben.", mainWeights: { C: 3 } },
       {
         id: "A",
         text: "Ich muss das noch fertig machen. Ich kann jetzt nicht ausfallen.",
         mainWeights: { A: 3 },
       },
-      { id: "B", text: "Wenn ich es nicht mache, macht es keiner.", mainWeights: { B: 3 } },
-      { id: "C", text: "Ich muss alles im Griff haben.", mainWeights: { C: 3 } },
       { id: "D", text: "Es ist schon okay. Ich komme später dran.", mainWeights: { D: 3 } },
+      { id: "B", text: "Wenn ich es nicht mache, macht es keiner.", mainWeights: { B: 3 } },
       { id: "E", text: "Ich muss nur noch schnell alles schaffen.", mainWeights: { E: 3 } },
     ],
     interstitial: "Interessant. Genau hier beginnt der Blick hinter den Schmerz.",
@@ -152,28 +160,28 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     group: "main",
     text: "Was passiert meistens, wenn du an deine Grenzen kommst?",
     options: [
+      {
+        id: "D",
+        text: "Ich werde gereizt, weil ich das Gefühl habe, dass wieder alles an mir hängen bleibt.",
+        mainWeights: { B: 2 },
+      },
       { id: "A", text: "Ich merke es erst sehr spät.", mainWeights: { A: 2 } },
-      { id: "B", text: "Ich funktioniere trotzdem weiter.", mainWeights: { A: 2 } },
+      {
+        id: "F",
+        text: "Ich sage anderen zu, obwohl ich eigentlich schon voll bin.",
+        mainWeights: { D: 2 },
+      },
       {
         id: "C",
         text: "Ich versuche noch mehr zu organisieren oder zu kontrollieren.",
         mainWeights: { C: 2 },
       },
       {
-        id: "D",
-        text: "Ich werde gereizt, weil ich das Gefühl habe, dass alles an mir hängt.",
-        mainWeights: { B: 2 },
-      },
-      {
         id: "E",
         text: "Ich fühle mich innerlich überladen und weiß gar nicht, wo ich anfangen soll.",
         mainWeights: { E: 2 },
       },
-      {
-        id: "F",
-        text: "Ich sage anderen zu, obwohl ich eigentlich schon voll bin.",
-        mainWeights: { D: 2 },
-      },
+      { id: "B", text: "Ich funktioniere trotzdem weiter.", mainWeights: { A: 2 } },
     ],
   },
   {
@@ -182,23 +190,23 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     group: "main",
     text: "Wie leicht fällt es dir, spontan zu sagen, was DU gerade brauchst?",
     options: [
+      { id: "B", text: "Ich weiß es – aber meistens ist gerade keine Zeit dafür.", mainWeights: { A: 2 } },
+      {
+        id: "D",
+        text: "Ich weiß ziemlich genau, was ich brauche, setze es aber oft erst um, wenn alle anderen versorgt sind.",
+        mainWeights: { B: 2 },
+      },
       {
         id: "A",
         text: "Ehrlich gesagt weiß ich es oft gar nicht.",
         mainWeights: { D: 2, A: 1 },
-      },
-      { id: "B", text: "Ich weiß es – aber meistens ist gerade keine Zeit dafür.", mainWeights: { A: 2 } },
-      { id: "C", text: "Ich weiß es, erlaube es mir aber nicht immer.", mainWeights: { D: 2 } },
-      {
-        id: "D",
-        text: "Ich weiß ziemlich genau, was ich brauche, setze es aber oft erst um, wenn alles andere erledigt ist.",
-        mainWeights: { E: 2 },
       },
       {
         id: "E",
         text: "Ich kann meine Bedürfnisse inzwischen gut wahrnehmen und ernst nehmen.",
         mainWeights: {},
       },
+      { id: "C", text: "Ich weiß es, erlaube es mir aber nicht immer.", mainWeights: { D: 2 } },
     ],
   },
   {
@@ -208,30 +216,30 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     text: "Wenn du einmal nicht nur auf deinen Rücken, sondern auf dein Leben schaust: Wo könnte gerade etwas nicht mehr wirklich stimmig sein?",
     options: [
       {
+        id: "C",
+        text: "Ich versuche, eine Situation unbedingt unter Kontrolle zu halten.",
+        mainWeights: { C: 2 },
+      },
+      { id: "E", text: "Es gibt gerade einfach zu viele Baustellen gleichzeitig.", mainWeights: { E: 2 } },
+      {
         id: "A",
         text: "Ich leiste viel, aber ich habe zu wenig Raum für mich.",
         mainWeights: { A: 1, E: 1 },
       },
       {
-        id: "B",
-        text: "Ich trage Verantwortung, die eigentlich nicht nur bei mir liegen müsste.",
-        mainWeights: { B: 2 },
+        id: "F",
+        text: "Eigentlich ist mein Leben stimmig – ich verstehe nur meinen wiederkehrenden Schmerz nicht.",
+        mainWeights: {},
       },
       {
-        id: "C",
-        text: "Ich versuche, eine Situation unbedingt unter Kontrolle zu halten.",
-        mainWeights: { C: 2 },
+        id: "B",
+        text: "Ich trage Verantwortung, die eigentlich nicht nur bei mir liegen dürfte.",
+        mainWeights: { B: 2 },
       },
       {
         id: "D",
         text: "Ich passe mich an etwas an, obwohl ich eigentlich etwas anderes möchte.",
         mainWeights: { D: 2 },
-      },
-      { id: "E", text: "Es gibt gerade einfach zu viele Baustellen gleichzeitig.", mainWeights: { E: 2 } },
-      {
-        id: "F",
-        text: "Eigentlich ist mein Leben stimmig – ich verstehe nur meinen wiederkehrenden Schmerz nicht.",
-        mainWeights: {},
       },
     ],
     interstitial: "Du bist fast da. Gleich siehst du, welches Muster bei dir besonders deutlich wird.",
@@ -243,29 +251,29 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     text: "Wenn dein Rücken dich morgen nicht mehr ausbremsen würde – was wäre ein echter kleiner Schritt, den du in deinem Leben wieder machen würdest?",
     options: [
       {
-        id: "A",
-        text: "Ich würde mir endlich wieder Zeit für mich nehmen.",
-        mainWeights: { A: 1, D: 1 },
-      },
-      {
-        id: "B",
-        text: "Ich würde eine Verantwortung abgeben oder Hilfe annehmen.",
-        mainWeights: { B: 2 },
-      },
-      {
-        id: "C",
-        text: "Ich würde etwas tun, obwohl ich noch nicht weiß, wie alles ausgeht.",
-        mainWeights: { C: 2 },
-      },
-      {
         id: "D",
         text: "Ich würde endlich etwas tun, was ICH möchte – nicht nur, was andere brauchen.",
         mainWeights: { D: 2 },
       },
       {
+        id: "B",
+        text: "Ich würde endlich eine Verantwortung abgeben, die eigentlich nicht nur meine ist.",
+        mainWeights: { B: 2 },
+      },
+      {
         id: "E",
         text: "Ich würde eine Sache nach der anderen angehen, statt alles gleichzeitig schaffen zu wollen.",
         mainWeights: { E: 2 },
+      },
+      {
+        id: "A",
+        text: "Ich würde mir endlich wieder Zeit für mich nehmen.",
+        mainWeights: { A: 1, D: 1 },
+      },
+      {
+        id: "C",
+        text: "Ich würde etwas tun, obwohl ich noch nicht weiß, wie alles ausgeht.",
+        mainWeights: { C: 2 },
       },
     ],
   },

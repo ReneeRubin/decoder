@@ -38,27 +38,27 @@ describe("calculateMainCode – konsistente Buchstaben-Antworten (Fragen 1-9)", 
     expect(result.showSecondary).toBe(false);
   });
 
-  it("2. Alle B-Antworten -> Hauptcode A (!), Sekundärcode B, knapper Abstand < 3", () => {
+  it("2. Alle B-Antworten -> Hauptcode B, Sekundärcode A (nach der Gewichtungs-Korrektur für Typ B)", () => {
     const result = calculateMainCode(withAllOption("B"));
-    expect(result.scores).toEqual({ A: 9, B: 7, C: 1, D: 0, E: 1 });
-    expect(result.code).toBe("A");
-    expect(result.secondaryCode).toBe("B");
-    expect(result.showSecondary).toBe(true);
-  });
-
-  it("3. Alle C-Antworten -> Hauptcode C, Sekundärcode D (Tie-Break D vs. E via Alphabet-Fallback)", () => {
-    const result = calculateMainCode(withAllOption("C"));
-    expect(result.scores).toEqual({ A: 0, B: 1, C: 14, D: 2, E: 2 });
-    expect(result.code).toBe("C");
-    expect(result.secondaryCode).toBe("D");
+    expect(result.scores).toEqual({ A: 8, B: 11, C: 0, D: 0, E: 0 });
+    expect(result.code).toBe("B");
+    expect(result.secondaryCode).toBe("A");
     expect(result.showSecondary).toBe(false);
   });
 
-  it("4. Alle D-Antworten -> Hauptcode D, Sekundärcode E", () => {
+  it("3. Alle C-Antworten -> Hauptcode C, Sekundärcode B (Dreier-Gleichstand B/D/E via Alphabet-Fallback)", () => {
+    const result = calculateMainCode(withAllOption("C"));
+    expect(result.scores).toEqual({ A: 0, B: 2, C: 13, D: 2, E: 2 });
+    expect(result.code).toBe("C");
+    expect(result.secondaryCode).toBe("B");
+    expect(result.showSecondary).toBe(false);
+  });
+
+  it("4. Alle D-Antworten -> Hauptcode D, Sekundärcode B", () => {
     const result = calculateMainCode(withAllOption("D"));
-    expect(result.scores).toEqual({ A: 1, B: 2, C: 3, D: 9, E: 4 });
+    expect(result.scores).toEqual({ A: 1, B: 4, C: 3, D: 9, E: 2 });
     expect(result.code).toBe("D");
-    expect(result.secondaryCode).toBe("E");
+    expect(result.secondaryCode).toBe("B");
     expect(result.showSecondary).toBe(false);
   });
 
@@ -80,16 +80,16 @@ describe("calculateMainCode – Mischprofil & Tie-Breaker", () => {
       q4: "E", // E+2
       q5: "E", // E+3 (Signature-Frage)
       q6: "E", // E+2
-      q7: "D", // E+2
+      q7: "D", // B+2 (nach Gewichtungs-Korrektur; vorher E+2)
       q8: "E", // E+2
       q9: "E", // E+2
       ...NEUTRAL_SPUR,
     };
     const result = calculateMainCode(answers);
-    // A: 1 | C: 1 | D: 2 | E: 1+1+2+3+2+2+2+2 = 15
-    expect(result.scores).toEqual({ A: 1, B: 0, C: 1, D: 2, E: 15 });
+    // A: 1 | B: 2 | C: 1 | D: 2 | E: 1+1+2+3+2+2+2 = 13
+    expect(result.scores).toEqual({ A: 1, B: 2, C: 1, D: 2, E: 13 });
     expect(result.code).toBe("E");
-    expect(result.secondaryCode).toBe("D");
+    expect(result.secondaryCode).toBe("B");
     expect(result.showSecondary).toBe(false);
   });
 

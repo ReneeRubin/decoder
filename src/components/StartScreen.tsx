@@ -15,33 +15,32 @@ export function StartScreen({ onStart }: StartScreenProps) {
           (siehe README, Abschnitt "Fehlende Assets").
         */}
         <span className="hero-badge">RückenbewusstSEIN · Renée Rubin</span>
-        <h1>Warum kommt dein Rückenschmerz immer wieder?</h1>
+        <h1 className="start-headline">Warum kommt dein Rückenschmerz immer wieder?</h1>
         <p style={{ color: "var(--color-petrol)", fontWeight: 600 }}>
           Der 3-Minuten-Rücken-Decoder für leistungsstarke Frauen, die schon vieles ausprobiert haben.
         </p>
 
-        <p>
-          Du hast schon vieles gegen deinen Rückenschmerz ausprobiert – Übungen, Bewegung, Physio, Dehnen, vielleicht
-          sogar komplette Trainingsprogramme. Es wird besser. Und dann kommt der Schmerz wieder.
+        <p style={{ color: "var(--color-grau)" }}>
+          Ärzte, Physio, Übungen und Osteopathie hast du hinter dir, aber der Schmerz kam immer wieder.
         </p>
 
-        <p>
-          Vielleicht fehlt dir nicht die nächste Methode.
-          <br />
-          Vielleicht fehlt dir der Zusammenhang.
-        </p>
+        <p>Dann ist es Zeit, nicht noch mehr zu tun – sondern genauer hinzuschauen.</p>
+
+        <p>Vielleicht gibt es eine Spur hinter deinem Schmerz, die dir bisher niemand gezeigt hat.</p>
 
         <p>
-          Finde in wenigen Minuten heraus, welches unbewusste Muster bei dir eine Rolle spielen könnte – und worauf
-          dein Körper dich möglicherweise aufmerksam macht.
+          Vielleicht fehlt dir jetzt gerade nur der Zusammenhang zwischen deinem Schmerz und dem, was sich in deinem
+          Leben immer wieder zeigt.
         </p>
+
+        <p>Finde in nur 3 Minuten heraus, welche Schmerz Spur du bisher vielleicht übersehen hast.</p>
 
         <button type="button" className="btn btn-primary" onClick={onStart}>
-          Meinen Rücken-Decoder starten
+          RÜCKEN DECODER STARTEN
         </button>
 
         <p className="hint" style={{ marginTop: 16 }}>
-          12 Fragen · ca. 3 Minuten · keine Diagnose
+          12 Fragen · ca. 3 Minuten · keine Diagnose · tiefer Einblick
         </p>
 
         <Testimonials />

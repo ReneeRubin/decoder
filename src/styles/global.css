@@ -78,6 +78,10 @@ h1 {
   font-size: clamp(1.9rem, 5vw, 2.75rem);
 }
 
+.start-headline {
+  font-size: clamp(1.5rem, 4.2vw, 2.15rem);
+}
+
 h2 {
   font-size: clamp(1.4rem, 4vw, 1.9rem);
 }
