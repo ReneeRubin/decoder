@@ -83,7 +83,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const result = calculateResult(answers, version);
 
   const attributes: BrevoContactAttributes = {
-    FNAME: firstName,
+    VORNAME: firstName,
     SCHMERZ_DECODER_ERGEBNIS: MAIN_CODE_LABELS[result.main.code],
     SCHMERZ_DECODER_SEKUNDAERCODE: MAIN_CODE_LABELS[result.main.secondaryCode],
     SCHMERZ_DECODER_SPUR: formatSpurLabel(result.spur.ids),

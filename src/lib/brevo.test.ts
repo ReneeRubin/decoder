@@ -3,7 +3,7 @@ import { buildBrevoPayload, upsertBrevoContact } from "./brevo";
 import type { BrevoContactAttributes } from "../types";
 
 const attributes: BrevoContactAttributes = {
-  FNAME: "Anna",
+  VORNAME: "Anna",
   SCHMERZ_DECODER_ERGEBNIS: "Die Funktionierende",
   SCHMERZ_DECODER_SEKUNDAERCODE: "Die Überladene",
   SCHMERZ_DECODER_SPUR: "Energie",

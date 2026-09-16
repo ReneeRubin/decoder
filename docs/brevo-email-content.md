@@ -6,7 +6,7 @@ fachlichen Vorgabe übernommen (Single Source of Truth im Code:
 Template-Editor gedacht. Die Anwendung selbst verschickt keine E-Mail – das
 übernimmt die Brevo-Automation (siehe `docs/brevo-setup.md`).
 
-Verfügbare Merge-Tags: `{{contact.FNAME}}`, `{{contact.SCHMERZ_DECODER_ERGEBNIS}}`,
+Verfügbare Merge-Tags: `{{contact.VORNAME}}`, `{{contact.SCHMERZ_DECODER_ERGEBNIS}}`,
 `{{contact.SCHMERZ_DECODER_SEKUNDAERCODE}}`, `{{contact.SCHMERZ_DECODER_SPUR}}`.
 
 ## Aufbau der Mail (Reihenfolge)
@@ -274,5 +274,5 @@ eintragen, sobald verfügbar (siehe auch `VITE_CALENDLY_URL` in
 ## Mögliche Betreffzeilen (final in Brevo festzulegen)
 
 - „Dein persönlicher Rücken-Code ist da“
-- „{{contact.FNAME}}, das könnte die Spur hinter deinem Schmerz sein“
+- „{{contact.VORNAME}}, das könnte die Spur hinter deinem Schmerz sein“
 - „Dein Rücken-Decoder: Hier lohnt sich genaueres Hinsehen“

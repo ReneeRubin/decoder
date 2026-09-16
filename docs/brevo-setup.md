@@ -16,11 +16,16 @@ README.md, Architekturregel).
   gelöschten/neu angelegten Listen ändern). Falls abweichend, `BREVO_LIST_ID`
   in den Cloudflare Pages Environment Variables anpassen.
 
-## 2. Bestehendes Attribut
+## 2. Bestehende Attribute
 
 - `SCHMERZ_DECODER_ERGEBNIS` (Text) – **bleibt unverändert**, wird von der
   Anwendung weiterhin mit dem Titel des Hauptcodes befüllt (z.B.
   "Die Funktionierende").
+- `VORNAME` (Text) – wird von der Anwendung mit dem im Quiz eingegebenen
+  Vornamen befüllt. **Wichtig:** Der Attribut-Name muss in eurem
+  Brevo-Account exakt `VORNAME` heißen (nicht `FNAME` o.ä.) – ein Vertipper
+  hier führt dazu, dass Brevo das Attribut still verwirft und der Vorname in
+  E-Mails leer bleibt, ohne dass ein Fehler sichtbar wird.
 
 ## 3. Neue Attribute (in Brevo unter Kontakte → Einstellungen → Attribute anlegen)
 
@@ -85,7 +90,7 @@ Marketing-Mailing) – ausschließlich die Kontakt-/Listenzuordnung via API.
   - **Ein E-Mail-Template mit Merge-Tags**, das nur die variablen Kernwerte
     (`{{contact.SCHMERZ_DECODER_ERGEBNIS}}`,
     `{{contact.SCHMERZ_DECODER_SEKUNDAERCODE}}`,
-    `{{contact.SCHMERZ_DECODER_SPUR}}`, `{{contact.FNAME}}`) einsetzt und die
+    `{{contact.SCHMERZ_DECODER_SPUR}}`, `{{contact.VORNAME}}`) einsetzt und die
     fünf möglichen Lang-Texte als bedingte Blöcke enthält.
 - **TODO:** Die konkrete Betreffzeile wird laut Vorgabe final in Brevo
   gepflegt (Vorschläge siehe Vorgabe Abschnitt 43 / Abschlussbericht).

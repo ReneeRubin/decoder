@@ -90,7 +90,7 @@ export interface QuizSubmitResponse {
 }
 
 export interface BrevoContactAttributes {
-  FNAME: string;
+  VORNAME: string;
   SCHMERZ_DECODER_ERGEBNIS: string;
   SCHMERZ_DECODER_SEKUNDAERCODE: string;
   SCHMERZ_DECODER_SPUR: string;
