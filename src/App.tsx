@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QUIZ_QUESTIONS } from "./data/quiz";
+import { THANK_YOU_PATH } from "./config";
 import { StartScreen } from "./components/StartScreen";
 import { QuestionScreen } from "./components/QuestionScreen";
 import { InterstitialScreen } from "./components/InterstitialScreen";
@@ -14,14 +15,28 @@ type Step =
   | { kind: "start" }
   | { kind: "question"; index: number }
   | { kind: "interstitial"; afterIndex: number; text: string }
-  | { kind: "email" }
-  | { kind: "success" };
+  | { kind: "email" };
 
 export default function App() {
   const [step, setStep] = useState<Step>({ kind: "start" });
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | undefined>(undefined);
+
+  const isThankYouPage = window.location.pathname.startsWith(THANK_YOU_PATH);
+
+  /**
+   * Meta (Facebook) Lead-Event: feuert genau einmal, wenn die Danke-Seite
+   * (echter Browser-Redirect nach erfolgreichem Submit, siehe
+   * handleEmailSubmit) geladen wird. `fbq` existiert nur, wenn
+   * VITE_META_PIXEL_ID gesetzt ist (siehe index.html) – ohne Pixel-ID ist
+   * dies ein No-op.
+   */
+  useEffect(() => {
+    if (isThankYouPage) {
+      window.fbq?.("track", "Lead");
+    }
+  }, [isThankYouPage]);
 
   const totalQuestions = QUIZ_QUESTIONS.length;
 
@@ -71,7 +86,10 @@ export default function App() {
 
     if (result.success) {
       trackEvent({ name: "brevo_success" });
-      setStep({ kind: "success" });
+      // Echter Redirect (kein reiner State-Wechsel), damit Meta/Facebook auf
+      // der neuen URL einen frischen PageView sieht (URL-basierte
+      // Conversion-Regel "/ty1") und der Lead-Event-Handler oben feuert.
+      window.location.assign(THANK_YOU_PATH);
     } else {
       trackEvent({ name: "brevo_error" });
       setSubmitError(result.error ?? "Etwas ist schiefgelaufen. Bitte versuche es erneut.");
@@ -82,6 +100,15 @@ export default function App() {
     if (step.kind === "question") return QUIZ_QUESTIONS[step.index];
     return undefined;
   }, [step]);
+
+  if (isThankYouPage) {
+    return (
+      <main className="app-shell">
+        <SuccessScreen />
+        <Footer />
+      </main>
+    );
+  }
 
   return (
     <main className="app-shell">
@@ -115,8 +142,6 @@ export default function App() {
           errorMessage={submitError}
         />
       )}
-
-      {step.kind === "success" && <SuccessScreen />}
 
       <Footer />
     </main>

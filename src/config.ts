@@ -34,3 +34,14 @@ export const BREVO_REACTIVATION_FORM_URL =
   "https://5cc45ce8.sibforms.com/serve/MUIFAB33IJ0WRBbfddCKjSxt5BJyeuUULgx1W3xe9dKLfshlweedFjAoHffOH27gGbTZyF9eUIyzs453cqiqDNgJgRljHcbVsQLOsbwS4193vK7YAI1TARdM9NwX4TLn17NZWJI0oRaz1Nq3OqHyFUWeTaF73vIkhz_Gn9qUk9BEA-ByvuQ4-kxNXcUnqAyVpgaw6yAfBDAXOO9T";
 
 export const TOTAL_QUESTIONS = 12;
+
+/**
+ * Pfad der "Danke"-Seite, auf die nach erfolgreichem Quiz-Abschluss
+ * (erfolgreicher Brevo-Submit) per echtem Browser-Redirect weitergeleitet
+ * wird. Wird von Meta (Facebook) Ads für eine URL-basierte
+ * Conversion-Regel benötigt ("URL enthält /ty1") – siehe
+ * docs/meta-pixel-setup.md. Ein echter Redirect (statt nur internem State-
+ * Wechsel) ist nötig, damit der Meta-Pixel dort einen frischen PageView
+ * feuert und die URL für Tracking-Zwecke sichtbar ist.
+ */
+export const THANK_YOU_PATH = "/ty1";
