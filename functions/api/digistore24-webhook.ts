@@ -75,11 +75,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const listId = Number.parseInt(env.BREVO_VIP_LIST_ID ?? "", 10) || DEFAULT_VIP_LIST_ID;
   const vipAttributeValue = env.BREVO_VIP_ATTRIBUTE_VALUE ?? DEFAULT_VIP_ATTRIBUTE_VALUE;
 
-  const brevoResult = await upsertBrevoContact({ apiKey: env.BREVO_API_KEY, listId }, purchase.email, {
+  const attributes: Record<string, string> = {
     VORNAME: purchase.firstName,
     NACHNAME: purchase.lastName,
     VIP_2609: vipAttributeValue,
-  });
+  };
+  // Nur setzen, wenn Digistore24 eine im internationalen Format gültige Nummer geliefert hat –
+  // Brevo lehnt SMS/WHATSAPP sonst ab, was sonst den gesamten Kontakt-Sync scheitern ließe.
+  if (purchase.phone) {
+    attributes.SMS = purchase.phone;
+    attributes.WHATSAPP = purchase.phone;
+  }
+
+  const brevoResult = await upsertBrevoContact({ apiKey: env.BREVO_API_KEY, listId }, purchase.email, attributes);
 
   if (!brevoResult.success) {
     return errorResponse(`Brevo-Synchronisierung fehlgeschlagen für Order ${purchase.orderId}.`, 502);

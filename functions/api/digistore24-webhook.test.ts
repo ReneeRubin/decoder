@@ -67,6 +67,39 @@ describe("POST /api/digistore24-webhook", () => {
     });
   });
 
+  it("setzt SMS/WHATSAPP, wenn Digistore24 eine gültige internationale Telefonnummer liefert", async () => {
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+    vi.stubGlobal("fetch", fetchSpy);
+
+    const fields = { ...baseFields, phone_no: "+4915112345678" };
+    const body = await signedBody(fields, PASSPHRASE);
+    const response = await onRequestPost(buildContext(body, baseEnv));
+
+    expect(response.status).toBe(200);
+    const [, init] = fetchSpy.mock.calls[0];
+    const payload = JSON.parse(init.body);
+    expect(payload.attributes).toEqual({
+      VORNAME: "Anna",
+      NACHNAME: "Muster",
+      VIP_2609: "vipaktiv",
+      SMS: "+4915112345678",
+      WHATSAPP: "+4915112345678",
+    });
+  });
+
+  it("lässt SMS/WHATSAPP weg, wenn die Telefonnummer kein gültiges internationales Format hat", async () => {
+    const fetchSpy = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+    vi.stubGlobal("fetch", fetchSpy);
+
+    const fields = { ...baseFields, phone_no: "0151 12345678" };
+    const body = await signedBody(fields, PASSPHRASE);
+    await onRequestPost(buildContext(body, baseEnv));
+
+    const [, init] = fetchSpy.mock.calls[0];
+    const payload = JSON.parse(init.body);
+    expect(payload.attributes).toEqual({ VORNAME: "Anna", NACHNAME: "Muster", VIP_2609: "vipaktiv" });
+  });
+
   it("lehnt Requests mit ungültiger Signatur ab, ohne Brevo zu kontaktieren", async () => {
     const fetchSpy = vi.fn();
     vi.stubGlobal("fetch", fetchSpy);

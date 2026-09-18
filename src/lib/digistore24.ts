@@ -12,6 +12,22 @@
 
 const NEGATIVE_EVENT_KEYWORDS = ["refund", "chargeback", "dispute", "cancel", "missed"];
 
+/** Grobe E.164-Prüfung (führendes "+", 7–15 Ziffern) – das Format, das Brevo für SMS/WHATSAPP erwartet. */
+const INTERNATIONAL_PHONE_REGEX = /^\+[1-9]\d{6,14}$/;
+
+/**
+ * Normalisiert eine von Digistore24 gelieferte Telefonnummer für Brevo.
+ * Gibt `null` zurück, wenn die Nummer nicht im internationalen Format
+ * (führendes "+") vorliegt – Brevo lehnt SMS/WHATSAPP-Werte ohne dieses
+ * Format ab, und ein einzelner ungültiger Wert soll nicht den gesamten
+ * Kontakt-Sync zum Scheitern bringen.
+ */
+export function normalizePhoneNumber(raw: string | null): string | null {
+  if (!raw) return null;
+  const cleaned = raw.replace(/[\s()-]/g, "");
+  return INTERNATIONAL_PHONE_REGEX.test(cleaned) ? cleaned : null;
+}
+
 function constantTimeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
   let mismatch = 0;
@@ -57,6 +73,8 @@ export interface Digistore24VipPurchase {
   email: string;
   firstName: string;
   lastName: string;
+  /** Internationale Telefonnummer (führendes "+") oder `null`, falls keine/keine gültige übermittelt wurde. */
+  phone: string | null;
   productId: string;
   orderId: string;
   eventName: string;
@@ -86,10 +104,14 @@ export function extractVipPurchase(params: URLSearchParams, vipProductId: string
   const email = params.get("email") ?? params.get("buyer_email");
   if (!email) return null;
 
+  const rawPhone =
+    params.get("phone_no") ?? params.get("phone") ?? params.get("address_phone_no") ?? params.get("phone_number");
+
   return {
     email,
     firstName: params.get("first_name") ?? params.get("address_first_name") ?? "",
     lastName: params.get("last_name") ?? params.get("address_last_name") ?? "",
+    phone: normalizePhoneNumber(rawPhone),
     productId,
     orderId: params.get("order_id") ?? "",
     eventName,

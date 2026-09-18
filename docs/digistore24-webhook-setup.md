@@ -13,10 +13,22 @@ ist einzeln erklärt.
 3. Der Code in `functions/api/digistore24-webhook.ts` prüft: Kommt diese
    Nachricht wirklich von Digistore24 (nicht von jemand anderem, der die URL
    erraten hat)? Und: Ist das wirklich ein bezahlter Kauf des VIP-Pakets?
-4. Wenn ja: Der Kontakt wird in Brevo angelegt/aktualisiert, der Liste "VIP"
-   (#26) zugeordnet und das Attribut `VIP_2609` auf `vipaktiv` gesetzt.
+4. Wenn ja: Der Kontakt wird in Brevo angelegt/aktualisiert (Attribute
+   `VORNAME`, `NACHNAME`, ggf. `SMS`/`WHATSAPP` bei vorhandener Telefonnummer),
+   der Liste "VIP" (#26) zugeordnet und das Attribut `VIP_2609` auf
+   `vipaktiv` gesetzt.
 5. Die bereits in Brevo eingerichtete Automation reagiert auf die
    Listenzuordnung und verschickt die Willkommensmail.
+
+**Telefonnummer (SMS/WHATSAPP):** Falls dein Digistore24-Bestellformular für
+das VIP-Produkt eine Telefonnummer abfragt, wird sie – wenn sie im
+internationalen Format vorliegt (z. B. `+4915112345678`) – automatisch in die
+Brevo-Standardattribute `SMS` und `WHATSAPP` geschrieben. Liegt sie in einem
+anderen Format vor (z. B. `0151 12345678` ohne Ländervorwahl), wird sie
+bewusst **nicht** übernommen (Brevo würde den kompletten Kontakt-Sync
+ablehnen, wenn das Format nicht passt) – der restliche Kontakt (E-Mail, Name,
+VIP-Attribut) wird trotzdem angelegt. Prüfe nach dem ersten Test-IPN, in
+welchem Format Digistore24 die Nummer tatsächlich liefert.
 
 ## Schritt 1: Digistore24-Produkt prüfen
 

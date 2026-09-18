@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractVipPurchase, verifyDigistore24Signature } from "./digistore24";
+import { extractVipPurchase, normalizePhoneNumber, verifyDigistore24Signature } from "./digistore24";
 
 const PASSPHRASE = "test-passphrase-123";
 
@@ -69,10 +69,33 @@ describe("extractVipPurchase", () => {
       email: "anna@example.com",
       firstName: "Anna",
       lastName: "Muster",
+      phone: null,
       productId: "734497",
       orderId: "ord-1",
       eventName: "on_payment",
     });
+  });
+
+  it("übernimmt eine gültige internationale Telefonnummer", () => {
+    const params = new URLSearchParams({
+      product_id: "734497",
+      email: "anna@example.com",
+      order_is_paid: "yes",
+      phone_no: "+49 151 12345678",
+    });
+    const purchase = extractVipPurchase(params, "734497");
+    expect(purchase?.phone).toBe("+4915112345678");
+  });
+
+  it("ignoriert eine Telefonnummer ohne internationales Format", () => {
+    const params = new URLSearchParams({
+      product_id: "734497",
+      email: "anna@example.com",
+      order_is_paid: "yes",
+      phone_no: "0151 12345678",
+    });
+    const purchase = extractVipPurchase(params, "734497");
+    expect(purchase?.phone).toBeNull();
   });
 
   it("ignoriert Käufe eines anderen Produkts", () => {
@@ -122,5 +145,20 @@ describe("extractVipPurchase", () => {
       order_is_paid: "yes",
     });
     expect(extractVipPurchase(params, "734497")).toBeNull();
+  });
+});
+
+describe("normalizePhoneNumber", () => {
+  it("akzeptiert eine internationale Nummer und entfernt Leerzeichen/Klammern/Bindestriche", () => {
+    expect(normalizePhoneNumber("+49 (151) 123-45678")).toBe("+4915112345678");
+  });
+
+  it("lehnt eine Nummer ohne führendes + ab", () => {
+    expect(normalizePhoneNumber("0151 12345678")).toBeNull();
+  });
+
+  it("gibt null für leere/fehlende Werte zurück", () => {
+    expect(normalizePhoneNumber(null)).toBeNull();
+    expect(normalizePhoneNumber("")).toBeNull();
   });
 });
