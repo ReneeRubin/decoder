@@ -1,4 +1,4 @@
-import type { BrevoContactAttributes, BrevoContactPayload } from "../types";
+import type { BrevoAttributesInput, BrevoContactPayload } from "../types";
 
 /**
  * Serverseitiger Brevo-Client. Wird AUSSCHLIESSLICH von Cloudflare Pages
@@ -29,7 +29,7 @@ export interface BrevoResult {
 
 export function buildBrevoPayload(
   email: string,
-  attributes: BrevoContactAttributes,
+  attributes: BrevoAttributesInput,
   listId: number,
 ): BrevoContactPayload {
   return {
@@ -54,7 +54,7 @@ export function buildBrevoPayload(
 export async function upsertBrevoContact(
   config: BrevoClientConfig,
   email: string,
-  attributes: BrevoContactAttributes,
+  attributes: BrevoAttributesInput,
 ): Promise<BrevoResult> {
   const payload = buildBrevoPayload(email, attributes, config.listId);
 

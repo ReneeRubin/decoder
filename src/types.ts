@@ -90,6 +90,7 @@ export interface QuizSubmitResponse {
 }
 
 export interface BrevoContactAttributes {
+  [key: string]: string;
   VORNAME: string;
   SCHMERZ_DECODER_ERGEBNIS: string;
   SCHMERZ_DECODER_SEKUNDAERCODE: string;
@@ -98,9 +99,12 @@ export interface BrevoContactAttributes {
   SCHMERZ_DECODER_DATUM: string;
 }
 
+/** Attribut-Werte für einen Brevo-Kontakt. Jede Quelle (Quiz, Digistore24-Webhook, …) bringt ihre eigene Teilmenge mit. */
+export type BrevoAttributesInput = Record<string, string | number | boolean>;
+
 export interface BrevoContactPayload {
   email: string;
-  attributes: BrevoContactAttributes;
+  attributes: BrevoAttributesInput;
   listIds: number[];
   updateEnabled: true;
 }

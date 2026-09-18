@@ -68,6 +68,13 @@ Vollständige Anleitung: [`docs/brevo-setup.md`](docs/brevo-setup.md).
 Copy-Paste-Inhalte für das Ergebnis-Mail-Template:
 [`docs/brevo-email-content.md`](docs/brevo-email-content.md).
 
+### Digistore24 → Brevo VIP-Webhook
+
+`functions/api/digistore24-webhook.ts` nimmt Digistore24-Käufe des
+VIP-Pakets entgegen und synchronisiert den Kontakt nach Brevo (Liste #26,
+Attribut `VIP_2609`). Vollständige Schritt-für-Schritt-Anleitung (inkl.
+Erklärung der IPN-Passphrase): [`docs/digistore24-webhook-setup.md`](docs/digistore24-webhook-setup.md).
+
 ## 6. Cloudflare Setup
 
 1. Cloudflare-Account, neues **Pages**-Projekt, verbunden mit diesem Repo.
