@@ -1,7 +1,13 @@
 import type { QuizQuestion } from "../types";
 
 /**
- * Die 12 Fragen des Rücken-Decoders.
+ * Die 12 Fragen des Decoders.
+ *
+ * Meta-Konformität (10/2026): Meta hatte die Domains gesperrt, weil die Seite
+ * mit Gesundheitszuständen in Verbindung gebracht wurde. Alle sichtbaren
+ * Texte sprechen deshalb nur noch über Themen, Gefühle, Gedanken und Energie
+ * (Lebenslast), nicht über Rücken, Schmerz, Symptome oder Heilung. Options-IDs
+ * und Gewichtungen sind unverändert.
  *
  * Fragen 1–9 bestimmen den HAUPTCODE (5 Typen A–E).
  * Fragen 10–12 bestimmen ausschließlich die AKTUELLE SPUR (Energie/Emotionen/Gedanken)
@@ -24,11 +30,11 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     number: 1,
     id: "q1",
     group: "main",
-    text: "Wenn dein Rücken sich wieder meldet – was passiert meistens zuerst?",
+    text: "Wenn du spürst, dass dir gerade alles zu viel wird – was passiert meistens zuerst?",
     options: [
       {
         id: "C",
-        text: "Ich werde unruhig und möchte schnell wieder Kontrolle über meinen Körper bekommen.",
+        text: "Ich werde unruhig und möchte schnell wieder Kontrolle über die Situation bekommen.",
         mainWeights: { C: 2 },
       },
       {
@@ -152,7 +158,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       { id: "B", text: "Wenn ich es nicht mache, macht es keiner.", mainWeights: { B: 3 } },
       { id: "E", text: "Ich muss nur noch schnell alles schaffen.", mainWeights: { E: 3 } },
     ],
-    interstitial: "Interessant. Genau hier beginnt der Blick hinter den Schmerz.",
+    interstitial: "Interessant. Genau hier beginnt der Blick auf das, was du trägst.",
   },
   {
     number: 6,
@@ -213,7 +219,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     number: 8,
     id: "q8",
     group: "main",
-    text: "Wenn du einmal nicht nur auf deinen Rücken, sondern auf dein Leben schaust: Wo könnte gerade etwas nicht mehr wirklich stimmig sein?",
+    text: "Wenn du dein Leben einmal wie einen Spiegel betrachtest: Wo könnte gerade etwas nicht mehr wirklich stimmig sein?",
     options: [
       {
         id: "C",
@@ -228,7 +234,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "F",
-        text: "Eigentlich ist mein Leben stimmig – ich verstehe nur meinen wiederkehrenden Schmerz nicht.",
+        text: "Eigentlich ist mein Leben stimmig – ich verstehe nur nicht, warum es sich trotzdem so schwer anfühlt.",
         mainWeights: {},
       },
       {
@@ -248,7 +254,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     number: 9,
     id: "q9",
     group: "main",
-    text: "Wenn dein Rücken dich morgen nicht mehr ausbremsen würde – was wäre ein echter kleiner Schritt, den du in deinem Leben wieder machen würdest?",
+    text: "Wenn du morgen ein Stück dieser Last ablegen könntest – was wäre ein echter kleiner Schritt, den du in deinem Leben wieder machen würdest?",
     options: [
       {
         id: "D",
@@ -295,7 +301,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "C",
-        text: "Ich bin oft müde und erschöpft, selbst wenn ich eigentlich genug geschlafen habe.",
+        text: "Ich starte oft schon ohne Schwung in den Tag, selbst nach einer ruhigen Nacht.",
         spurWeights: { ENERGIE: 3 },
       },
       {

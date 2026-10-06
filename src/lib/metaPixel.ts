@@ -33,6 +33,9 @@ export function initMetaPixel(): void {
   })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js", undefined, undefined, undefined);
   /* eslint-enable */
 
+  // Automatische Events/Metadaten-Erfassung aus: Meta liest sonst Button-Texte
+  // und Seiteninhalte selbst aus. Gesendet werden nur PageView und Lead.
+  window.fbq!("set", "autoConfig", false, pixelId);
   window.fbq!("init", pixelId);
   window.fbq!("track", "PageView");
 }

@@ -14,7 +14,7 @@ export function SuccessScreen() {
           Sobald bereitgestellt, hier als optimiertes <img> einbinden.
         */}
         <h2>Geschafft. ✨</h2>
-        <p>Dein Rücken wurde decodiert.</p>
+        <p>Dein Muster wurde decodiert.</p>
         <p>Dein persönliches Ergebnis ist jetzt auf dem Weg in dein Postfach.</p>
         <p style={{ fontWeight: 600, color: "var(--color-petrol)" }}>Schau jetzt in deine E-Mails.</p>
         <p className="hint">

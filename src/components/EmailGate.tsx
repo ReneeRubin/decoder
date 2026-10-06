@@ -27,10 +27,10 @@ export function EmailGate({ onSubmit, onBack, submitting, errorMessage }: EmailG
   return (
     <div className="screen text-center">
       <div className="card">
-        <h2>Dein Rücken wurde decodiert. ✨</h2>
+        <h2>Dein Muster wurde decodiert. ✨</h2>
         <p>Dein persönliches Ergebnis ist bereit.</p>
         <p>
-          Gib jetzt deine E-Mail-Adresse ein und ich schicke dir deinen Rücken-Code direkt in dein Postfach.
+          Gib jetzt deine E-Mail-Adresse ein und ich schicke dir deinen persönlichen Code direkt in dein Postfach.
         </p>
 
         {errorMessage ? (
