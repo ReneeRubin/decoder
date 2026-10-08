@@ -33,27 +33,23 @@ export interface Testimonial {
   showOnSite?: boolean;
 }
 
+/**
+ * Meta-konform gekürzt (10/2026): Aussagen über Schmerzen, Körper oder
+ * Heilung stehen bewusst NICHT im Website-Code, damit Meta die Seite nicht
+ * als gesundheitsbezogen einstuft. Die vollständigen Zitate stehen in
+ * content/testimonials.md (für die E-Mails).
+ */
 export const TESTIMONIALS: Testimonial[] = [
   {
     name: "Alexandra",
-    quote:
-      "Ich bin in meiner Mitte angekommen, habe Frieden gemacht mit so vielen Dingen. Ich kann sagen, dass ich glücklich, entspannt, angstfrei und schmerzfrei bin.",
+    quote: "Ich bin in meiner Mitte angekommen, habe Frieden gemacht mit so vielen Dingen.",
     context: "nach 4 Monaten Begleitung",
-    mainCode: "E",
-    showOnSite: false,
-  },
-  {
-    name: "Alexandra",
-    quote:
-      "Mein Rücken ist stark und stabil, meine Psyche ebenso. Ich habe auch wieder viel mehr Energie. Es ist unglaublich, wie sich alles ins Positive gewandelt hat.",
-    context: "einige Monate später, im Follow-up",
     mainCode: "E",
   },
   {
     name: "Verena",
-    quote:
-      "Ich bin seit rund 5 Wochen schmerzfrei im unteren Rücken. Du hast mir vieles gezeigt, was ich eigentlich fast verloren hatte.",
-    context: "schmerzfrei im unteren Rücken",
+    quote: "Du hast mir vieles gezeigt, was ich eigentlich fast verloren hatte.",
+    context: "nach der Begleitung",
     mainCode: "C",
   },
 ];
